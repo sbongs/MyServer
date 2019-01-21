@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head></head>
+<body>
+    <button>test</button>
+    <script>
+    document.querySelector('button').addEventListener('click', function () {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/signin');
+
+    const username = document.querySelector('input[name=username]').value;
+    const password = document.querySelector('input[name=password]').value;
+
+    const payload = { username, password };
+
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.send(JSON.stringify(payload));
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+            console.log(xhr.response)
+            document.querySelector('.result').innerHTML = xhr.response;
+        } else {
+            console.log("Error!");
+        }
+        }
+    };
+    });
+    </script>
+</body>
